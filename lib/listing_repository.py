@@ -1,4 +1,4 @@
-from lib.listing import *
+from lib.listing import Listing
 
 class ListingRepository:
     def __init__(self, connection):
@@ -21,9 +21,14 @@ class ListingRepository:
         return Listing(row['id'], row['name'], row['description'], row['price'], row['user_id'])
 
     def create(self, listing):
-        rows = self._connection.execute("INSERT INTO listings (name, description, price, user_id) VALUES (%s, %s, %s, %s)", [listing.name, listing.description, listing.price, listing.user_id])
+        self._connection.execute(
+            "INSERT INTO listings (name, description, price, user_id) VALUES (%s, %s, %s, %s)",
+            [listing.name, listing.description, listing.price, listing.user_id])
         return None
 
+
     def delete(self, id):
-        self._connection.execute("DELETE FROM listings WHERE id = %s", [id])
+        self._connection.execute(
+            "DELETE FROM listings WHERE id = %s",
+            [id])
         return None

@@ -20,7 +20,7 @@ class Listing:
         if self.price is None or not isinstance(self.price, int):
             return False
         return True
-    
+
     def generate_errors(self):
         errors = []
         if self.name is None or self.name == "":

@@ -4,47 +4,266 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request Booking</title>
-    <link rel="stylesheet" href="../static/style.css">
+   
+    <style>
+        .navbar {
+            position: fixed; /* or sticky */
+            top: 0; /* Ensures it stays at the top of the page */
+            left: 0; /* Aligns with the left side */
+            right: 0; /* Aligns with the right side */
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #005d79;
+            padding: 8px 10px;
+            color: white;
+            z-index: 9999;
+        }
+
+        .navbar .logo {
+            font-size: 1.5em;
+            font-weight: 100;
+            margin-left: 10%;
+        }
+
+        .navbar .logo img {
+            height: 20px; /* Adjust logo size */
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 2px;
+            margin-right: 11%;
+        }
+
+        .navbar .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 1em;
+            font-weight: 100;
+            padding: 8px 16px;
+        }
+
+        .navbar .nav-links a:hover {
+            background-color: #00D0A2;
+            border-radius: 8px;
+            padding: 8px 16px;
+        }
+
+        body {
+            margin-top: 5%;
+            flex-direction: column;
+            font-family: futura;
+            font-weight: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* height: 100vh; */
+            background-color: #f0f4f7;
+        }
+        .container {
+            text-align: left;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            width: 75%;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            grid-template-columns: 1fr 1fr; /* Two equal columns */
+            gap: 20px; /* Space between columns */
+        }
+        
+        h2 {
+            font-family: futura;
+            font-weight: 100;
+            font-size: 1.5em;
+            color: rgb(32, 32, 32);
+        }
+
+        p {
+            font-family: futura;
+            font-weight: 100;
+            font-size: 1em;
+            color: rgb(68, 68, 68);
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .column {
+            flex: 1;
+            padding: 20px;
+        }
+
+
+        .left {
+            flex: 2;
+        }
+
+        .right {
+            flex: 1;
+            margin-left: 50px;
+        }
+        .icon {
+            width: 32px;
+            height: 100%;
+        }
+
+        .listing-info {
+            margin-bottom: 20px;
+            font-size: 0.9em;
+            /* padding: 10px; */
+            /* border: 1px solid #ddd; */
+            border-radius: 8px;
+        }
+        .input-group {
+            margin: 10px 0;
+        }
+        .input-group label {
+            display: block;
+            font-weight: 100;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 130px;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #005d79;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #00D0A2;
+        }
+
+        h1 {
+            font-family: futura;
+            font-weight: 400;
+            color: #00796b;
+        }
+        /* Amenities styling */
+        .amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; /* Adds space between icons */
+            margin-top: 20px;
+        }
+
+        .amenity {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80px; /* Set a fixed width for each amenity */
+            text-align: top;
+            font-size: 0.7em;
+            color: #333;
+        }
+
+
+
+        hr {
+            border: none;            /* Remove default border */
+            height: 1px;             /* Set the thickness */
+            background-color: #dbdbdb; /* Set the color of the line */
+            margin: 20px 0;          /* Space above and below the line */
+        }
+
+.image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <a href="/landing" class="logo">
-            <img src="../static/images/makersbnb.svg" alt="MakersBnB Logo">
-          </a>
-          <ul class="nav-links">
-
-
-          </ul>
-        </nav>
-      </header>
-    <div class="form-container">
-        <h2>Request a booking</h2>
-
-        <div class="field">
-            <p><strong>Listing name:</strong> {{ name }}</p><br>
-            <p><strong>Description:</strong> {{ description }}</p><br>
-            <p><strong>Price per night:</strong> £{{ price }}</p>
+    <div class="navbar">
+        <div class="logo">
+            <a href="/home">
+            <img src="../static/images/makersbnb_white.svg" alt="Logo"> <!-- Logo Placeholder -->
+        </a>
         </div>
-        
-        <form action="/request_booking/{{ id }}" method="POST">
-            <div class="field">
-                <label for="start_date">Start Date</label>
-                <input type="date" id="start_date" name="start_date" required>
-            </div>
-            <div class="field">
-                <label for="end_date">End Date</label>
-                <input type="date" id="end_date" name="end_date" required>
-            </div>
-            <div class="field">
-                <input type="text" placeholder="User ID" required>
-              </div>
-            <div class="field btn">
-                <input type="submit" value="Request Booking">
-            </div>
-        </form>
-        
+        <div class="nav-links">
+            <a href="/home">Properties</a>
+            <a href="/sign_up">Sign up</a>
+            <a href="/log_in">Log in</a>
+            <a href="#">My account</a>
+        </div>
     </div>
+<div class="container">
+    <div class="column left">
+        <img class="image" src="../static/images/roberto-nickson-6FZf3yzuodE-unsplash.jpg">
+    <div class="listing-info">
+        <h2>{{ name }}</h2>
+        <p>{{ description }}</p>
+    </div>
+    <hr>
+    <div class="property">
+        <div class="image-placeholder"></div>
+            <p class="description">What this place offers</p>
+        <div class="amenities">
+            <div class="amenity">
+        <img class="icon" src="../static/images/icon_hot_tub.svg" alt="hottub">
+        <p>Hot tub</p>
+            </div>
+            <div class="amenity">
+                <img class="icon" src="../static/images/icon_outdoor area.svg" alt="hottub">
+        <p>Outdoors</p>
+            </div>
+            <div class="amenity">
+                <img class="icon" src="../static/images/icon_iron.svg" alt="hottub">
+        <p>Iron</p>
+            </div>
+            <div class="amenity">
+                <img class="icon" src="../static/images/icon_washer.svg" alt="hottub">
+        <p>Washer</p>
+            </div>
+            <div class="amenity">
+                <img class="icon" src="../static/images/icon_hairdryer.svg" alt="hottub">
+        <p>Hair dryer</p>
+            </div>
+            <div class="amenity">
+                <img class="icon" src="../static/images/icon_cooker.svg" alt="hottub">
+        <p>Cooker</p>
+            </div>
+            <div class="amenity">
+                <img class="icon" src="../static/images/icon_wifi.svg" alt="hottub">
+        <p>WiFi</p>
+            </div>
+            <div class="amenity">
+                <img class="icon" src="../static/images/icon_tv.svg" alt="hottub">
+        <p>TV</p>
+            </div>
+        </div>
+        </div>
+    </div>
+    <div class="column right">
+        <h1 style="color: #00D0A2; font-family: futura;"> £{{ price }}</h1>
+        <p>Price per night</strong>
+            <br>
+    <form action="/request_booking/{{ id }}" method="POST">
+        <div class="input-group" style="font-family: futura;">
+            <label for="start_date">Start Date</label>
+            <input style="font-family: futura;" type="date" id="start_date" name="start_date" required>
+        </div>
+        <div class="input-group" style="font-family: futura;">
+            <label for="end_date">End Date</label>
+            <input style="font-family: futura;" type="date" id="end_date" name="end_date" required>
+        </div>
+        <button type="submit" class="button" style="font-family: futura;">Request booking</button>
+    </form>
+    </div>
+</div>
 
 </body>
 </html>

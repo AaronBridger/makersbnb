@@ -1,10 +1,10 @@
 from lib.booking import *
-
 def test_class_booking_constructs():
     booking = Booking(1, 1, 2, '2024-10-12', '2024-10-13', 'pending')
     assert booking.id == 1
     assert booking.listing_id == 1
     assert booking.user_id == 2
+
     assert booking.check_in == datetime.strptime('2024-10-12', "%Y-%m-%d").date()
     assert booking.check_out == datetime.strptime('2024-10-13', "%Y-%m-%d").date()
     assert booking.status == 'pending'

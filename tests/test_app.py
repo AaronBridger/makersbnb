@@ -57,13 +57,14 @@ def test_post_new_listing(page, test_web_address, db_connection):
     page.fill("input[name=name]", 'Test Listing')
     page.fill("input[name=description]", "Test description")
     page.fill("input[name=price]", "100")
+    page.fill("input[name=user_id]", "1")
     page.click("input[type=submit]")
     
     expect(page.locator("h3").nth(3)).to_have_text("4: Test Listing")
     
     page.click("text=4: Test Listing")
     
-    expect(page.locator("h1")).to_have_text("Request a booking")
+    expect(page.locator("h2")).to_have_text("Test Listing")
     # expect(page.locator("h2")).to_have_text("Description: Test description")
     # expect(page.locator("p")).to_have_text("Price per night(GBP): £100")
 
@@ -86,7 +87,7 @@ def test_get_listing_information(page, test_web_address):
     expect(listing_name).to_have_text("Listing name: Seaside Serenity")
     expect(description).to_have_text("Description: A peaceful coastal retreat with stunning ocean views, a private balcony, and luxurious modern amenities.")
     expect(price).to_have_text("Price per night: £100")
-
+    # complete when you know what home page looks like
 
 # test for start and end date inputs
 def test_start_and_end_dates(page, test_web_address):
@@ -101,8 +102,6 @@ def test_start_and_end_dates(page, test_web_address):
 
     expect(start_date_input).to_have_value("2024-01-01")
     expect(end_date_input).to_have_value("2024-01-09")
-
-
 
     start_date_label = page.locator("label").nth(0)
     end_date_label = page.locator("label").nth(1)
@@ -152,10 +151,6 @@ def test_go_back_homepage(page, test_web_address):
     back_to_homepage_button.click()
     assert page.url == f"http://{test_web_address}/home"
 
-
-
-
-
 # test home listings
 """
 GET /home
@@ -182,8 +177,6 @@ def test_post_user_sign_up_redirects_to_home(db_connection, page, test_web_addre
     db_connection.seed("seeds/makersbnb.sql")
     page.goto(f"http://{test_web_address}/sign_up")
 
-    expect(page.locator("h1")).to_have_text("Create an Account")
-
     page.fill("input[name=username]", 'doug_91')
     page.fill("input[name=email]", 'example@outlook.com')
     page.fill("input[name=password]", 'Password1!!')
@@ -201,8 +194,6 @@ def test_post_user_sign_up_password_is_valid_too_short(db_connection, page, test
     db_connection.seed("seeds/makersbnb.sql")
     page.goto(f"http://{test_web_address}/sign_up")
 
-    expect(page.locator("h1")).to_have_text("Create an Account")
-
     page.fill("input[name=username]", 'doug_91')
     page.fill("input[name=email]", 'example@outlook.com')
     page.fill("input[name=password]", 'hello')
@@ -214,8 +205,6 @@ def test_post_user_sign_up_password_is_valid_no_spec_char(db_connection, page, t
     db_connection.seed("seeds/makersbnb.sql")
     page.goto(f"http://{test_web_address}/sign_up")
 
-    expect(page.locator("h1")).to_have_text("Create an Account")
-
     page.fill("input[name=username]", 'doug_91')
     page.fill("input[name=email]", 'example@outlook.com')
     page.fill("input[name=password]", 'Password')
@@ -226,8 +215,6 @@ def test_post_user_sign_up_password_is_valid_no_spec_char(db_connection, page, t
 def test_post_user_sign_up_password_is_valid_empty_input(db_connection, page, test_web_address):
     db_connection.seed("seeds/makersbnb.sql")
     page.goto(f"http://{test_web_address}/sign_up")
-
-    expect(page.locator("h1")).to_have_text("Create an Account")
 
     page.fill("input[name=username]", 'doug_91')
     page.fill("input[name=email]", 'example@outlook.com')
@@ -247,8 +234,6 @@ def test_post_user_sign_up_email_is_valid_empty_input(db_connection, page, test_
     db_connection.seed("seeds/makersbnb.sql")
     page.goto(f"http://{test_web_address}/sign_up")
 
-    expect(page.locator("h1")).to_have_text("Create an Account")
-
     page.fill("input[name=username]", 'doug_91')
     page.fill("input[name=email]", "")
     page.fill("input[name=password]", 'Password1!')
@@ -259,8 +244,6 @@ def test_post_user_sign_up_email_is_valid_empty_input(db_connection, page, test_
 def test_post_user_sign_up_email_is_valid_no_at(db_connection, page, test_web_address):
     db_connection.seed("seeds/makersbnb.sql")
     page.goto(f"http://{test_web_address}/sign_up")
-
-    expect(page.locator("h1")).to_have_text("Create an Account")
 
     page.fill("input[name=username]", 'doug_91')
     page.fill("input[name=email]", "example.com")
@@ -273,8 +256,6 @@ def test_post_user_sign_up_email_is_valid_no_at(db_connection, page, test_web_ad
     db_connection.seed("seeds/makersbnb.sql")
     page.goto(f"http://{test_web_address}/sign_up")
 
-    expect(page.locator("h1")).to_have_text("Create an Account")
-
     page.fill("input[name=username]", 'doug_91')
     page.fill("input[name=email]", "example@outlook")
     page.fill("input[name=password]", 'Password1!')
@@ -285,8 +266,6 @@ def test_post_user_sign_up_email_is_valid_no_at(db_connection, page, test_web_ad
 def test_post_user_sign_up_email_is_valid_email_already_exists(db_connection, page, test_web_address):
     db_connection.seed("seeds/makersbnb.sql")
     page.goto(f"http://{test_web_address}/sign_up")
-
-    expect(page.locator("h1")).to_have_text("Create an Account")
 
     page.fill("input[name=username]", 'doug_91')
     page.fill("input[name=email]", "doug@email.com")

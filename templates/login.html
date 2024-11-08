@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - MakersBnB</title>
+  <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <header>
+    <nav class="navbar">
+        <a href="/landing" class="logo">
+        <img src="../static/images/makersbnb.svg" alt="MakersBnB Logo">
+      </a>
+      <ul class="nav-links">
+
+        <li><a href="/login">Login</a></li>
+        <li><a href="/sign_up">Signup</a></li> 
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Login Form -->
+  <div class="form-container">
+    <h2>Login</h2>
+    <form action="/login" method="POST">
+      <div class="field">
+        <input type="text" placeholder="Email Address" name="email" required>
+      </div>
+      <div class="field">
+        <input type="password" placeholder="Password" name="password" required>
+      </div>
+      <div class="field btn">
+        <input type="submit" value="Login">
+      </div>
+    </form>
+  </div>
+</body>
+</html>

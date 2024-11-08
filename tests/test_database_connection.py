@@ -10,7 +10,7 @@ def test_database_connection(db_connection):
 
     # Insert a new record
     db_connection.execute("INSERT INTO test_table (name) VALUES (%s)", ["second_record"])
-
+    
     # Retrieve all records
     result = db_connection.execute("SELECT * FROM test_table")
 

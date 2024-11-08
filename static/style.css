@@ -121,6 +121,14 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
+
+  .form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #00796b;
+  }
+  
+
   .form-container .field {
     margin-bottom: 15px;
   }
